@@ -1,0 +1,18 @@
+.ImageComponent {
+    height: 95vh;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.Grab {
+    cursor: grab;
+}
+
+.Grabbed {
+    cursor: grabbing;
+}
+
+.Hidden {
+    display:none;
+}

@@ -1,0 +1,46 @@
+.MenuComponent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.FileInput {
+    display: none;
+}
+
+.MenuItem {
+    width: 30px;
+    height: 30px;
+
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 30px;
+    box-sizing: border-box;
+
+    border: none;
+    cursor: pointer;
+
+    font-size: 1.1em;
+    font-family: VHSFont;
+
+
+    background-color: black;
+    color: white;
+}
+
+.MenuItem span {
+    opacity: 0;
+}
+
+.MenuItem:hover {
+    width: auto;
+}
+
+.MenuItem:hover span {
+    opacity: 1;
+
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}

@@ -1,0 +1,27 @@
+.EffectListComponent {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.EffectList {
+    flex-basis: auto;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.AddEffectButton {
+    height: 50px;
+    line-height: 50px;
+
+    text-align: center;
+    font-family: VHSFont;
+    color: green;
+    font-size: 3em;
+
+    cursor: pointer;
+
+    background-color: white;
+}

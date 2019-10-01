@@ -1,0 +1,23 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.AppContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  height: 95vh;
+  overflow: hidden;
+}
+
+.ImageComponent {
+  order: 1;
+  flex-grow: 5;
+}
+
+.ListComponent {
+  order: 2;
+  flex-grow: 1;
+}

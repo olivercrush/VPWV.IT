@@ -1,0 +1,26 @@
+@font-face {
+    font-family: VHSFont;
+    src: url(../../Resources/VCR_OSD_MONO_1.001.ttf);
+}
+
+.HeaderComponent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    height: 5vh;
+    line-height: 5vh;
+    background-color: white;
+}
+
+.MenuComponent {
+    order: 1;
+    flex-grow: 2;
+
+    padding-left: 15px;
+}
+
+.TitleComponent {
+    order: 2;
+    flex-grow: 1;
+}
