@@ -6,11 +6,12 @@ class ImageComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      b_imageLoaded:false, 
-      b_dragging:false,
+      b_imageLoaded: false, 
+      b_dragging: false,
+      f_scale: 1,
       v_imagePos: null,
-      v_posClicked:null,
-      v_initPosDraggedImage:null,
+      v_posClicked: null,
+      v_initPosDraggedImage: null,
       str_className: "ImageComponent Grab"
     };
 
@@ -19,11 +20,13 @@ class ImageComponent extends React.Component {
     this.StartTranslation = this.StartTranslation.bind(this);
     this.EndTranslation = this.EndTranslation.bind(this);
     this.Translate = this.Translate.bind(this);
+    this.Zoom = this.Zoom.bind(this);
 
     this.InitializeState = this.InitializeState.bind(this);
     this.ResetState = this.ResetState.bind(this);
     
     this.DrawImage = this.DrawImage.bind(this);
+    this.ResizeCanvas = this.ResizeCanvas.bind(this);
     this.ClearCanvas = this.ClearCanvas.bind(this);
   }
 
@@ -46,7 +49,7 @@ class ImageComponent extends React.Component {
   // CANVAS METHODS
 
   StartTranslation(e) {
-    if (!this.state.b_b_dragging) {
+    if (this.state.b_imageLoaded && !this.state.b_dragging) {
       var mousePos = this.GetMousePos(e);
 
       var posClicked = {
@@ -96,14 +99,14 @@ class ImageComponent extends React.Component {
       if (imagePos.x > canvas.width/2) {
         imagePos.x = canvas.width/2;
       }
-      else if (imagePos.x + img.width < canvas.width/2) {
+      else if (imagePos.x + img.width*this.state.f_scale < canvas.width/2) {
         imagePos.x = canvas.width/2 - img.width;
       }
 
       if (imagePos.y > canvas.height/2) {
         imagePos.y = canvas.height/2;
       }
-      else if (imagePos.y + img.height < canvas.height/2) {
+      else if (imagePos.y + img.height*this.state.f_scale < canvas.height/2) {
         imagePos.y = canvas.height/2 - img.height;
       }
 
@@ -111,6 +114,25 @@ class ImageComponent extends React.Component {
       this.setState({
         b_imageLoaded: true,
         v_imagePos: imagePos
+      });
+    }
+  }
+
+  Zoom(e) {
+    if (this.state.b_imageLoaded) {
+      var newScale = this.state.f_scale;
+
+      if (e.deltaY < 0 && this.state.f_scale < 1.5) {
+        newScale = this.state.f_scale + 0.1;
+      }
+      else if (e.deltaY > 0 && this.state.f_scale > 0.5) {
+        newScale = this.state.f_scale - 0.1;
+      }
+
+      //console.log(this.state.f_scale + " vs " + newScale);
+
+      this.setState({
+        f_scale: newScale
       });
     }
   }
@@ -132,7 +154,7 @@ class ImageComponent extends React.Component {
   ClearCanvas() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width / this.state.f_scale, canvas.height / this.state.f_scale);
   }
 
   DrawImage() {
@@ -141,7 +163,12 @@ class ImageComponent extends React.Component {
     const img = this.refs.image;
 
     //console.log(this.state.b_imageLoaded + " -> " + this.state.v_imagePos.x + " : " + this.state.v_imagePos.y);
-    ctx.drawImage(img, this.state.v_imagePos.x, this.state.v_imagePos.y);
+    this.ClearCanvas();
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(this.state.f_scale, this.state.f_scale);
+    ctx.drawImage(img, Math.floor(this.state.v_imagePos.x / this.state.f_scale), Math.floor(this.state.v_imagePos.y / this.state.f_scale));
+    //console.log("x : " + Math.floor(this.state.v_imagePos.x / this.state.f_scale) + " / y : " + Math.floor(this.state.v_imagePos.y / this.state.f_scale));
   }
 
   // STATE METHODS
@@ -162,7 +189,8 @@ class ImageComponent extends React.Component {
   ResetState() {
     this.setState({
       b_imageLoaded: false,
-      v_imagePos: null
+      v_imagePos: null,
+      f_scale: 1
     });
   }
   
@@ -213,7 +241,7 @@ class ImageComponent extends React.Component {
   render() {
     return (
       <div className={this.state.str_className}>
-        <canvas ref="canvas" onMouseDown={this.StartTranslation} onMouseUp={this.EndTranslation} onMouseLeave={this.EndTranslation} onMouseMove={this.Translate} />
+        <canvas ref="canvas" onWheel={this.Zoom} onMouseDown={this.StartTranslation} onMouseUp={this.EndTranslation} onMouseLeave={this.EndTranslation} onMouseMove={this.Translate} />
         <img ref="image" alt="" src={this.props.image} className="Hidden" />
       </div>
     );
