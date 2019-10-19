@@ -96,18 +96,18 @@ class ImageComponent extends React.Component {
       const canvas = this.refs.canvas;
       const img = this.refs.image;
 
-      if (imagePos.x > canvas.width/2) {
+      if (imagePos.x > canvas.width / 2) {
         imagePos.x = canvas.width/2;
       }
-      else if (imagePos.x + img.width*this.state.f_scale < canvas.width/2) {
-        imagePos.x = canvas.width/2 - img.width;
+      else if (imagePos.x + img.width*this.state.f_scale < canvas.width / 2) {
+        imagePos.x = canvas.width / 2 - img.width*this.state.f_scale;
       }
 
-      if (imagePos.y > canvas.height/2) {
+      if (imagePos.y > canvas.height / 2) {
         imagePos.y = canvas.height/2;
       }
-      else if (imagePos.y + img.height*this.state.f_scale < canvas.height/2) {
-        imagePos.y = canvas.height/2 - img.height;
+      else if (imagePos.y + img.height*this.state.f_scale < canvas.height / 2) {
+        imagePos.y = canvas.height / 2 - img.height*this.state.f_scale;
       }
 
       // TODO : create a state method
@@ -129,10 +129,28 @@ class ImageComponent extends React.Component {
         newScale = this.state.f_scale - 0.1;
       }
 
+      const canvas = this.refs.canvas;
+      const img = this.refs.image;
+      var imagePos = this.state.v_imagePos;
+      if (imagePos.x > canvas.width / 2) {
+        imagePos.x = canvas.width/2;
+      }
+      else if (imagePos.x + img.width*newScale < canvas.width / 2) {
+        imagePos.x = canvas.width / 2 - img.width*newScale;
+      }
+
+      if (imagePos.y > canvas.height / 2) {
+        imagePos.y = canvas.height/2;
+      }
+      else if (imagePos.y + img.height*newScale < canvas.height / 2) {
+        imagePos.y = canvas.height / 2 - img.height*newScale;
+      }
+
       //console.log(this.state.f_scale + " vs " + newScale);
 
       this.setState({
-        f_scale: newScale
+        f_scale: newScale,
+        v_imagePos: imagePos
       });
     }
   }
@@ -168,6 +186,7 @@ class ImageComponent extends React.Component {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(this.state.f_scale, this.state.f_scale);
     ctx.drawImage(img, Math.floor(this.state.v_imagePos.x / this.state.f_scale), Math.floor(this.state.v_imagePos.y / this.state.f_scale));
+    
     //console.log("x : " + Math.floor(this.state.v_imagePos.x / this.state.f_scale) + " / y : " + Math.floor(this.state.v_imagePos.y / this.state.f_scale));
   }
 
