@@ -1,10 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import HeaderComponent from './HeaderComponent/HeaderComponent';
 import ImageComponent from './ImageComponent/ImageComponent';
 import ListComponent from './ListComponent/ListComponent';
-
-import ImageTest from '../Resources/DBZ.jpg';
 
 class App extends React.Component {
 
@@ -13,6 +12,19 @@ class App extends React.Component {
     this.state = {image: null, base: null};
     this.LoadImage = this.LoadImage.bind(this);
     this.ClearImage = this.ClearImage.bind(this);
+
+    this.TestBackend();
+  }
+
+  async TestBackend() {
+    const response = await axios.post(
+      'http://127.0.0.1:5000/processImage',
+      { example : 'data' },
+      { headers: {
+        'Content-Type': 'application/json'
+      }}
+    )
+    console.log("RESPONSE FROM BACKEND : " + response);
   }
 
   LoadImage(image) {
