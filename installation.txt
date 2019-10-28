@@ -1,0 +1,9 @@
+Front :
+- npm
+- react
+- axios (https://malcoded.com/posts/react-http-requests-axios/)
+
+Back :
+- python
+- flask (https://flask.palletsprojects.com/en/1.1.x/installation/#installation)
+- flask-cors (pip install -U flask-cors)
