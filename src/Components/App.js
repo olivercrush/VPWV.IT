@@ -11,20 +11,10 @@ class App extends React.Component {
     super(props);
     this.state = {image: null, base: null};
     this.LoadImage = this.LoadImage.bind(this);
+    this.SendEffectList = this.SendEffectList.bind(this);
     this.ClearImage = this.ClearImage.bind(this);
 
-    this.TestBackend();
-  }
-
-  async TestBackend() {
-    const response = await axios.post(
-      'http://127.0.0.1:5000/processImage',
-      { example : 'data' },
-      { headers: {
-        'Content-Type': 'application/json'
-      }}
-    )
-    console.log("RESPONSE FROM BACKEND : " + response);
+    this.SendEffectList("test");
   }
 
   LoadImage(image) {
@@ -45,6 +35,17 @@ class App extends React.Component {
     }
   }
 
+  async SendEffectList(effectList) {
+    const response = await axios.post(
+      'http://127.0.0.1:5000/processImage',
+      { effects : effectList },
+      { headers: {
+        'content-type': 'application/json'
+      }}
+    )
+    console.log("RESPONSE FROM BACKEND : " + response);
+  }
+
   ClearImage() {
     this.setState(state => ({
       image: null
@@ -62,7 +63,7 @@ class App extends React.Component {
         />
         <div className="AppContent">
           <ImageComponent className="ImageComponent" image={image}/>
-          <ListComponent className="ListComponent" />
+          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList}/>
         </div>
       </div>
     );

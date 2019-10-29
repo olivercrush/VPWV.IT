@@ -11,6 +11,7 @@ def hello_world():
 @app.route('/processImage', methods=['POST'])
 def processImage():
     if request.method == 'POST':
+        print(request.json['effects'])
         return 'OK'
     else:
         return 'NOT OK'
