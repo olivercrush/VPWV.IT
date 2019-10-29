@@ -13,8 +13,6 @@ class App extends React.Component {
     this.LoadImage = this.LoadImage.bind(this);
     this.SendEffectList = this.SendEffectList.bind(this);
     this.ClearImage = this.ClearImage.bind(this);
-
-    this.SendEffectList("test");
   }
 
   LoadImage(image) {
@@ -28,6 +26,8 @@ class App extends React.Component {
           image: fr.result,
           base: fr.result
         }));
+
+        self.SendEffectList("test");
       }, false);
 
       fr.readAsDataURL(image);
@@ -38,7 +38,7 @@ class App extends React.Component {
   async SendEffectList(effectList) {
     const response = await axios.post(
       'http://127.0.0.1:5000/processImage',
-      { effects : effectList },
+      { effects : effectList, image : this.state.image },
       { headers: {
         'content-type': 'application/json'
       }}
