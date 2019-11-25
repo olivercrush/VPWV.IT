@@ -13,8 +13,10 @@ def hello_world():
 @app.route('/processImage', methods=['POST'])
 def processImage():
     if request.method == 'POST':   
-        applyEffects(request.json['image'], "")
+        newImage = applyEffects(request.json['image'], "", request.json['imageSize']['height'], request.json['imageSize']['width'], request.json['imageType'])
+        #print("HEIGHT : " + str(request.json['imageSize']['height']) + " / WIDTH : " + str(request.json['imageSize']['width']))
         #print(base64.b64decode(request.json['image']))
-        return 'OK'
+        #print(request.json['imageType'])
+        return "data:image/" + request.json['imageType'] + ";base64," + str(newImage).replace("b'", "")
     else:
         return 'NOT OK'

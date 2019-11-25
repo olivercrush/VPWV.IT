@@ -23,6 +23,8 @@ class MenuComponent extends React.Component {
           <button className="MenuItem">S<span>AVE</span></button>
 
           <button className="MenuItem" onClick={() => this.props.clearImage()}>C<span>LEAR</span></button>
+
+          <button className="MenuItem" onClick={() => this.props.sendEffectList("test")}>SE<span>ND</span></button>
       </div>
     );
   }

@@ -207,9 +207,13 @@ class ImageComponent extends React.Component {
 
   ResetState() {
     this.setState({
-      b_imageLoaded: false,
+      b_imageLoaded: false, 
+      b_dragging: false,
+      f_scale: 1,
       v_imagePos: null,
-      f_scale: 1
+      v_posClicked: null,
+      v_initPosDraggedImage: null,
+      str_className: "ImageComponent Grab"
     });
   }
   

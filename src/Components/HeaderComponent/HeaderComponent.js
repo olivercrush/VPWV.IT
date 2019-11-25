@@ -10,6 +10,7 @@ class HeaderComponent extends React.Component {
           <MenuComponent 
             loadImage={this.props.loadImage}
             clearImage={this.props.clearImage}
+            sendEffectList={this.props.sendEffectList}
           />
           <TitleComponent />
       </div>
