@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import send_file
 from flask_cors import CORS
 from ImageProcessing.applyEffects import applyEffects
 
@@ -14,9 +15,7 @@ def hello_world():
 def processImage():
     if request.method == 'POST':   
         newImage = applyEffects(request.json['image'], "", request.json['imageSize']['height'], request.json['imageSize']['width'], request.json['imageType'])
-        #print("HEIGHT : " + str(request.json['imageSize']['height']) + " / WIDTH : " + str(request.json['imageSize']['width']))
-        #print(base64.b64decode(request.json['image']))
-        #print(request.json['imageType'])
-        return "data:image/" + request.json['imageType'] + ";base64," + str(newImage).replace("b'", "")
+        return send_file(newImage, mimetype='image/'+request.json['imageType'])
+        
     else:
         return 'NOT OK'
