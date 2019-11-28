@@ -9,7 +9,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {image: null, base: null, type: null};
+    this.state = {image: null, base: null, type: null, active: false};
     this.LoadImage = this.LoadImage.bind(this);
     this.SendEffectList = this.SendEffectList.bind(this);
     this.ClearImage = this.ClearImage.bind(this);
@@ -25,7 +25,8 @@ class App extends React.Component {
         self.setState(state => ({
           image: fr.result,
           base: fr.result,
-          type: image.type.replace("image/", "")
+          type: image.type.replace("image/", ""),
+          active: true
         }));
       }, false);
 
@@ -56,7 +57,8 @@ class App extends React.Component {
 
   ClearImage() {
     this.setState(state => ({
-      image: null
+      image: null,
+      active: false
     }));
   }
 
@@ -72,7 +74,7 @@ class App extends React.Component {
         />
         <div className="AppContent">
           <ImageComponent className="ImageComponent" image={image}/>
-          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList}/>
+          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList} active={this.state.active} />
         </div>
       </div>
     );

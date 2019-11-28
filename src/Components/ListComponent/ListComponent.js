@@ -6,7 +6,7 @@ class ListComponent extends React.Component {
   render() {
     return (
       <div className="ListComponent">
-          <EffectListComponent />
+          <EffectListComponent sendEffectList={this.props.sendEffectList} active={this.props.active} />
       </div>
     );
   }
