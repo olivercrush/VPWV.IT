@@ -1,21 +1,23 @@
 from io import BytesIO
-from io import StringIO
+#from io import StringIO
 from PIL import Image
 import base64
 import re
+
+from ImageProcessing.grayscale import grayscale
+
 
 def applyEffects(image, effectList, height, width, imageType):
     print("PROCESSING IMAGE")
     pix = decodeImage(image)
 
-    for i in range(len(pix)):
-        pix[i] = (pix[i][0], 0, 0)
+    pix = grayscale(pix)
 
     return encodeImage(pix, height, width, imageType)
 
 def encodeImage(pix, heigth, width, imageType):
 
-    if imageType == 'png':
+    if (imageType == 'png' or imageType == 'gif'):
         img = Image.new("RGBA", (width, heigth))
     else:
         img = Image.new("RGB", (width, heigth))
@@ -29,7 +31,7 @@ def encodeImage(pix, heigth, width, imageType):
 
 def decodeImage(b64Image):
     image_data = re.sub('^data:image/.+;base64,', '', b64Image)
-    print("Size before : " + str(len(image_data)))
+    #print("Size before : " + str(len(image_data)))
     img = Image.open(BytesIO(base64.b64decode(image_data)))
     rgb = list(img.getdata())
     return rgb
