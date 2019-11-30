@@ -26,6 +26,15 @@ class EffectListComponent extends React.Component {
         }
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (!nextProps.active && nextProps.active !== this.props.active) {
+            console.log("yo");
+            this.setState({
+                effects: []
+            });
+        }
+    }
+
     render() {
         let addEffectButton = "";
 
