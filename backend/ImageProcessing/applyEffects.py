@@ -11,7 +11,10 @@ def applyEffects(image, effectList, height, width, imageType):
     print("PROCESSING IMAGE")
     pix = decodeImage(image)
 
-    pix = grayscale(pix)
+    for item in effectList:
+        print(item['id'])
+        if (item['id'] == 'grayscale'):
+            pix = grayscale(pix)
 
     return encodeImage(pix, height, width, imageType)
 

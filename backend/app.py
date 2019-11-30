@@ -14,7 +14,7 @@ def hello_world():
 @app.route('/processImage', methods=['POST'])
 def processImage():
     if request.method == 'POST':   
-        newImage = applyEffects(request.json['image'], "", request.json['imageSize']['height'], request.json['imageSize']['width'], request.json['imageType'])
+        newImage = applyEffects(request.json['image'], request.json['effects'], request.json['imageSize']['height'], request.json['imageSize']['width'], request.json['imageType'])
         return send_file(newImage, mimetype='image/'+request.json['imageType'])
         
     else:
