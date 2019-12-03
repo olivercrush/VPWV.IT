@@ -1,5 +1,6 @@
 import React from 'react';
 import './ImageComponent.css';
+import LoadingGif from '../../Resources/loading.gif'
 
 class ImageComponent extends React.Component {
 
@@ -194,6 +195,7 @@ class ImageComponent extends React.Component {
 
   InitializeState(img) {
     const canvas = this.refs.canvas;
+
     var imagePos = {
       x: canvas.width/2 - img.width/2,
       y: canvas.height/2 - img.height/2
@@ -262,8 +264,15 @@ class ImageComponent extends React.Component {
   // RENDER
 
   render() {
+    let loadingScreen = "";
+
+    if (this.props.serverProcessing) {
+      loadingScreen = <div className="LoadingScreen"><img src={LoadingGif} alt="Loading" /></div>;
+    }
+
     return (
       <div className={this.state.str_className}>
+        {loadingScreen}
         <canvas ref="canvas" onWheel={this.Zoom} onMouseDown={this.StartTranslation} onMouseUp={this.EndTranslation} onMouseLeave={this.EndTranslation} onMouseMove={this.Translate} />
         <img ref="image" alt="" src={this.props.image} className="Hidden" />
       </div>

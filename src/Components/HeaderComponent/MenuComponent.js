@@ -10,8 +10,8 @@ class MenuComponent extends React.Component {
   }
 
   LoadFile(files) {
-    console.log(files[0]);
-    this.props.loadImage(files[0]);
+    //console.log(files[0]);
+    this.props.loadImage(files[0], true);
   }
 
   render() {

@@ -9,13 +9,13 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {image: null, base: null, type: null, active: false};
+    this.state = {image: null, base: null, type: null, active: false, serverProcessing: false, needReset: true};
     this.LoadImage = this.LoadImage.bind(this);
     this.SendEffectList = this.SendEffectList.bind(this);
     this.ClearImage = this.ClearImage.bind(this);
   }
 
-  LoadImage(image) {
+  LoadImage(image, needReset) {
     // FileReader support
     if (FileReader) {
       var fr = new FileReader();
@@ -26,7 +26,8 @@ class App extends React.Component {
           image: fr.result,
           base: fr.result,
           type: image.type.replace("image/", ""),
-          active: true
+          active: true,
+          needReset: needReset
         }));
       }, false);
 
@@ -37,6 +38,10 @@ class App extends React.Component {
   async SendEffectList(effectList) {
     var img = new Image();
     img.src = this.state.image;
+
+    this.setState({
+      serverProcessing: true
+    });
 
     const response = await axios.post(
       'http://127.0.0.1:5000/processImage',
@@ -52,13 +57,18 @@ class App extends React.Component {
       }
     );
 
-    this.LoadImage(response.data);
+    this.setState({
+      serverProcessing: false
+    });
+
+    this.LoadImage(response.data, false);
   }
 
   ClearImage() {
     this.setState(state => ({
       image: null,
-      active: false
+      active: false,
+      needReset: true
     }));
   }
 
@@ -73,8 +83,8 @@ class App extends React.Component {
           sendEffectList={this.SendEffectList}
         />
         <div className="AppContent">
-          <ImageComponent className="ImageComponent" image={image}/>
-          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList} active={this.state.active} />
+          <ImageComponent className="ImageComponent" image={image} serverProcessing={this.state.serverProcessing} />
+          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList} active={this.state.active} needReset={this.state.needReset} />
         </div>
       </div>
     );
