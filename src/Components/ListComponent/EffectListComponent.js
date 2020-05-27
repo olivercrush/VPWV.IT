@@ -1,16 +1,29 @@
 import React from 'react';
 import './EffectListComponent.css';
 import EffectItemComponent from './EffectItemComponent';
+import EffectChoiceComponent from './../EffectChoiceComponent/EffectChoiceComponent';
+
 
 class EffectListComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {effects: []};
+        this.state = {
+            effects: [],
+            effectChoice: false
+        };
+
+        this.SwitchEffectChoiceDisplay = this.SwitchEffectChoiceDisplay.bind(this);
         this.AddGrayEffect = this.AddGrayEffect.bind(this);
+
+        this.AddFunctions = [
+            this.AddGrayEffect
+        ];
     }
 
     AddGrayEffect() {
+        this.SwitchEffectChoiceDisplay();
+
         if (this.props.active) {
             var effectList = this.state.effects;
             effectList.push({
@@ -26,9 +39,18 @@ class EffectListComponent extends React.Component {
         }
     }
 
+    SwitchEffectChoiceDisplay() {
+        if (this.props.active) {
+            var tmp = this.state.effectChoice;
+            this.setState({
+                effectChoice: !tmp
+            });
+            console.log(this.state.effectChoiceHide);
+        }
+    }
+
     componentWillUpdate(nextProps, nextState) {
         if (!nextProps.active && nextProps.active !== this.props.active) {
-            console.log("yo");
             this.setState({
                 effects: []
             });
@@ -37,9 +59,14 @@ class EffectListComponent extends React.Component {
 
     render() {
         let addEffectButton = "";
+        let effectChoice = "";
 
         if (this.props.active) {
-            addEffectButton = <div className="AddEffectButton" onClick={this.AddGrayEffect}>+</div>;
+            addEffectButton = <div className="AddEffectButton" onClick={this.SwitchEffectChoiceDisplay}>+</div>;
+        }
+
+        if (this.state.effectChoice) {
+            effectChoice = <EffectChoiceComponent addFunctions={this.AddFunctions} />
         }
 
         return (
@@ -51,6 +78,7 @@ class EffectListComponent extends React.Component {
                 </div>
                 
                 {addEffectButton}
+                {effectChoice}
             </div>
         );
     }

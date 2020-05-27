@@ -25,6 +25,7 @@ class ImageComponent extends React.Component {
 
     this.InitializeState = this.InitializeState.bind(this);
     this.ResetState = this.ResetState.bind(this);
+    this.ToggleLoadingScreen = this.ToggleLoadingScreen.bind(this);
     
     this.DrawImage = this.DrawImage.bind(this);
     this.ResizeCanvas = this.ResizeCanvas.bind(this);
@@ -217,6 +218,21 @@ class ImageComponent extends React.Component {
       v_initPosDraggedImage: null,
       str_className: "ImageComponent Grab"
     });
+  }
+
+  ToggleLoadingScreen(toggle) {
+    if (toggle) {
+      var className = this.state.str_className;
+      this.setState({
+        str_className: className + " LoadingScreenOn"
+      });
+    }
+    else {
+      var className = this.state.str_className.replace(" LoadingScreenOn", "");
+      this.setState({
+        str_className: className
+      });
+    }
   }
   
   // COMPONENTS LIFECYCLE
