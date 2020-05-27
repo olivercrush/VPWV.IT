@@ -12,7 +12,7 @@ class EffectChoiceComponent extends React.Component {
 
             <ul className="EffectChoiceList">
               <li onClick={this.props.addFunctions[0]}>Grayscale</li>
-              <li>Chromatic aberration</li>
+              <li onClick={this.props.addFunctions[1]}>Chromatic aberration</li>
               <li>Pixel sort</li>
             </ul>
           </div>

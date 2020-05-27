@@ -15,9 +15,11 @@ class EffectListComponent extends React.Component {
 
         this.SwitchEffectChoiceDisplay = this.SwitchEffectChoiceDisplay.bind(this);
         this.AddGrayEffect = this.AddGrayEffect.bind(this);
+        this.AddChromaticAberration = this.AddChromaticAberration.bind(this);
 
         this.AddFunctions = [
-            this.AddGrayEffect
+            this.AddGrayEffect,
+            this.AddChromaticAberration
         ];
     }
 
@@ -29,6 +31,23 @@ class EffectListComponent extends React.Component {
             effectList.push({
                 id: 'grayscale',
                 name: 'GRAYSCALE'
+            });
+
+            this.setState({
+                effects: effectList
+            });
+
+            this.props.sendEffectList(effectList);
+        }
+    }
+
+    AddChromaticAberration() {
+        this.SwitchEffectChoiceDisplay();
+        if (this.props.active) {
+            var effectList = this.state.effects;
+            effectList.push({
+                id: 'chromatic_aberration',
+                name: 'CHROMATIC ABERRATION'
             });
 
             this.setState({

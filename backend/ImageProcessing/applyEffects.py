@@ -5,6 +5,7 @@ import base64
 import re
 
 from ImageProcessing.grayscale import grayscale
+from ImageProcessing.chromaticAberration import chromaticAberration
 
 
 def applyEffects(image, effectList, height, width, imageType):
@@ -15,6 +16,8 @@ def applyEffects(image, effectList, height, width, imageType):
         print(item['id'])
         if (item['id'] == 'grayscale'):
             pix = grayscale(pix)
+        elif (item['id'] == 'chromatic_aberration'):
+            pix = chromaticAberration(pix)
 
     return encodeImage(pix, height, width, imageType)
 
