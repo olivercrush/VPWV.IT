@@ -66,14 +66,14 @@ class EffectListComponent extends React.Component {
         }
 
         if (this.state.effectChoice) {
-            effectChoice = <EffectChoiceComponent addFunctions={this.AddFunctions} />
+            effectChoice = <EffectChoiceComponent addFunctions={this.AddFunctions} switchDisplay={this.SwitchEffectChoiceDisplay} />
         }
 
         return (
             <div className="EffectListComponent">
                 <div className="EffectList">
                     {this.state.effects.map(item => (
-                        <EffectItemComponent effectTitle={item.name} />
+                        <EffectItemComponent key={item.key} effectTitle={item.name} />
                     ))}
                 </div>
                 

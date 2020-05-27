@@ -6,11 +6,16 @@ class EffectChoiceComponent extends React.Component {
   render() {
     return (
       <div className="EffectChoiceComponent">
-          <ul className="EffectChoiceContent">
-            <li onClick={this.props.addFunctions[0]}>Grayscale</li>
-            <li>Chromatic aberration</li>
-            <li>Pixel sort</li>
-          </ul>
+          <div className="EffectChoiceContent">
+            <p className="CloseCross" onClick={this.props.switchDisplay}>x</p>
+            <h3 className="EffectChoiceTitle">Effects</h3>
+
+            <ul className="EffectChoiceList">
+              <li onClick={this.props.addFunctions[0]}>Grayscale</li>
+              <li>Chromatic aberration</li>
+              <li>Pixel sort</li>
+            </ul>
+          </div>
       </div>
     );
   }
