@@ -12,7 +12,6 @@ class HeaderComponent extends React.Component {
             clearImage={this.props.clearImage}
             sendEffectList={this.props.sendEffectList}
           />
-          <TitleComponent />
       </div>
     );
   }

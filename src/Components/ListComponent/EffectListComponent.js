@@ -81,7 +81,7 @@ class EffectListComponent extends React.Component {
         let effectChoice = "";
 
         if (this.props.active) {
-            addEffectButton = <div className="AddEffectButton" onClick={this.SwitchEffectChoiceDisplay}>+</div>;
+            addEffectButton = <button onClick={this.SwitchEffectChoiceDisplay}>Add effect</button>;
         }
 
         if (this.state.effectChoice) {

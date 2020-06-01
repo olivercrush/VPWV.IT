@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import '98.css';
+
 import HeaderComponent from './HeaderComponent/HeaderComponent';
 import ImageComponent from './ImageComponent/ImageComponent';
 import ListComponent from './ListComponent/ListComponent';
@@ -76,15 +78,24 @@ class App extends React.Component {
     var image = this.state.image;
 
     return (
-      <div className="App">
-        <HeaderComponent 
-          loadImage={this.LoadImage}
-          clearImage={this.ClearImage}
-          sendEffectList={this.SendEffectList}
-        />
-        <div className="AppContent">
-          <ImageComponent className="ImageComponent" image={image} serverProcessing={this.state.serverProcessing} />
-          <ListComponent className="ListComponent" sendEffectList={this.SendEffectList} active={this.state.active} needReset={this.state.needReset} />
+      <div className="App window">
+        <div className="title-bar">
+          <div className="title-bar-text">V A P O R W A V E . it</div>
+          <div className="title-bar-controls">
+            <button aria-label="Help"></button>
+          </div>
+        </div>
+
+        <div className="window-body">
+          <HeaderComponent 
+            loadImage={this.LoadImage}
+            clearImage={this.ClearImage}
+            sendEffectList={this.SendEffectList}
+          />
+          <div className="AppContent">
+            <ImageComponent className="ImageComponent" image={image} serverProcessing={this.state.serverProcessing} />
+            <ListComponent className="ListComponent" sendEffectList={this.SendEffectList} active={this.state.active} needReset={this.state.needReset} />
+          </div>
         </div>
       </div>
     );

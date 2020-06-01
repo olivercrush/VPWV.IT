@@ -18,11 +18,11 @@ class MenuComponent extends React.Component {
     return (
       <div className="MenuComponent">
           <input ref="fileInput" id="file" type="file" className="FileInput" onChange={(e) => this.props.loadImage(e.target.files[0])}/>
-          <label htmlFor="file" className="MenuItem">O<span>PEN</span></label>
+          <button onClick={() => document.getElementById("file").click()}>Open</button>
 
-          <button className="MenuItem">S<span>AVE</span></button>
+          <button>Save</button>
 
-          <button className="MenuItem" onClick={() => this.props.clearImage()}>C<span>LEAR</span></button>
+          <button onClick={() => this.props.clearImage()}>Clear</button>
 
       </div>
     );
